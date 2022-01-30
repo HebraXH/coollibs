@@ -12,6 +12,12 @@ function ESP:CheckObject(Object)
 end
 
 function ESP:Box(Object, Settings)
+    Settings = Settings or {}
+
+    Settings.Color = Settings.Color or Color3.fromRGB(255, 255, 255)
+    Settings.Thickness = Settings.Thickness or 2
+    Settings.Filled = Settings.Filled or false
+
     if Object and not Object.PrimaryPart then
         return nil
     end
@@ -21,7 +27,8 @@ function ESP:Box(Object, Settings)
  
     BoxESP.DrawingObject = Drawing.new("Quad")
     BoxESP.DrawingObject.Color = Settings.Color or Color3.fromRGB(255, 255, 255)
-    BoxESP.DrawingObject.Thickness = 2
+    BoxESP.DrawingObject.Thickness = Settings.Thickness or 2
+    BoxESP.DrawingObject.Filled = Settings.Filled or false
     BoxESP.Part = Settings.Part or Object.PrimaryPart
     BoxESP.Removed = false
  
