@@ -81,6 +81,8 @@ function ESP:Name(Object, Text, Settings)
     Settings = Settings or {}
 
     Settings.Location = Settings.Location or "Top"
+    Settings.ShowDistance = Settings.ShowDistance or false
+    Settings.ShowHealth = Settings.ShowHealth or false
 
     if Object and not Object.PrimaryPart then
         return nil
@@ -108,6 +110,14 @@ function ESP:Name(Object, Text, Settings)
         local BoundingCFrame, BoundingSize = Object:GetBoundingBox()
         local NewCFrame = CFrame.new(BoundingCFrame.Position, workspace.Camera.CFrame.Position)
         local Offset
+
+        local FinalText = Text
+        if Settings.ShowHealth and Object:FindFirstChild("Humanoid") then
+            FinalText .. " [" .. math.round(Object.Humanoid.Health) .. "/" .. Object.Humanoid.MaxHealth .. "]"
+        end
+        if Settings.ShowDistance then
+            FinalText .. " " .. math.round((NameESP.Part.Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
+        end
 
         if Settings.Location == "Left" then
             NewCFrame += Vector3.new(-BoundingSize.X/2, -BoundingSize.Y, 0)
