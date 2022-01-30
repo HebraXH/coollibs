@@ -80,6 +80,7 @@ function ESP:Name(Object, Text, Settings)
     NameESP.DrawingObject.Color = Settings.Color or Color3.fromRGB(255, 255, 255)
     NameESP.DrawingObject.Text = Text
     NameESP.DrawingObject.Center = true
+    NameESP.DrawingObject.Outline = Settings.Outline or false
     NameESP.Part = Settings.Part or Object.PrimaryPart
     NameESP.Offset = Vector3.new(0, NameESP.Part.Size.Y, 0)
     NameESP.Removed = false
