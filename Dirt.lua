@@ -1020,18 +1020,34 @@ function Lib:CreateWindow(Name)
             Key.Text = "..."
             Usable = false
             Check = game:GetService("UserInputService").InputBegan:Connect(function(key)
-                if key.KeyCode ~= Enum.KeyCode.Unknown and not game:GetService("UserInputService"):GetFocusedTextBox() and key.KeyCode ~= Enum.KeyCode.Escape then
-                    Key.Text = CheckName(key)
-                    location[flag] = key.KeyCode
-                    Check:Disconnect() 
-                    wait(0.1)
-                    Usable = true
-                elseif key.KeyCode == Enum.KeyCode.Escape then
-                    Key.Text = "nil"
-                    location[flag] = nil
-                    Check:Disconnect() 
-                    wait(0.1)
-                    Usable = true
+                if key.UserInputType == Enum.UserInputType.Keyboard then
+                    if key.KeyCode ~= Enum.KeyCode.Unknown and not game:GetService("UserInputService"):GetFocusedTextBox() and key.KeyCode ~= Enum.KeyCode.Escape then
+                        Key.Text = CheckName(key)
+                        location[flag] = key.KeyCode
+                        Check:Disconnect() 
+                        wait(0.1)
+                        Usable = true
+                    elseif key.KeyCode == Enum.KeyCode.Escape then
+                        Key.Text = "nil"
+                        location[flag] = nil
+                        Check:Disconnect() 
+                        wait(0.1)
+                        Usable = true
+                    end
+                else
+                    local Yea = {
+                        [Enum.UserinputType.MouseButton1] = "MB1",
+                        [Enum.UserinputType.MouseButton2] = "MB2",
+                        [Enum.UserinputType.MouseButton3] = "MB3",
+                    }
+
+                    if Yea[key.UserInputType] then
+                        Key.Text = Yea[key.UserInputType]
+                        location[flag] = key.UserInputType
+                        Check:Disconnect() 
+                        wait(0.1)
+                        Usable = true
+                    end
                 end
             end)
         end)
