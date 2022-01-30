@@ -98,6 +98,7 @@ function ESP:Name(Object, Text, Settings)
     NameESP.DrawingObject.Text = Text
     NameESP.DrawingObject.Center = true
     NameESP.DrawingObject.Outline = Settings.Outline or false
+    NameESP.ExtraText = ""
     NameESP.Part = Settings.Part or Object.PrimaryPart
     NameESP.Offset = Vector3.new(0, NameESP.Part.Size.Y, 0)
     NameESP.Removed = false
@@ -118,7 +119,7 @@ function ESP:Name(Object, Text, Settings)
         if Settings.ShowDistance then
             FinalText ..= " " .. math.round((NameESP.Part.Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
         end
-        NameESP.DrawingObject.Text = FinalText
+        NameESP.DrawingObject.Text = FinalText .. ExtraText
 
         if Settings.Location == "Left" then
             NewCFrame += Vector3.new(-BoundingSize.X/2, -BoundingSize.Y, 0)
