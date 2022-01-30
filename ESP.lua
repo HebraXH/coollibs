@@ -51,6 +51,10 @@ function ESP:Box(Object, Settings)
         end
     end
 
+    function BoxESP:ChangeSetting(Setting, Value)
+        Settings[Setting] = Value
+    end
+
     function BoxESP:Hide()
         BoxESP.DrawingObject.Visible = false
     end
@@ -120,6 +124,10 @@ function ESP:Name(Object, Text, Settings)
             local NewObjectPosition = Vector2.new(Vector.X, Vector.Y) + Offset
             NameESP.DrawingObject.Position = NewObjectPosition
         end
+    end
+
+    function NameESP:ChangeSetting(Setting, Value)
+        Settings[Setting] = Value
     end
 
     function NameESP:Hide()
@@ -246,6 +254,10 @@ function ESP:HealthBar(Object, Settings)
             HealthBarESP.DrawingObject.From = OBackgroundFrom
             HealthBarESP.DrawingObject.To = OBackgroundTo
         end
+    end
+
+    function HealthBarESP:ChangeSetting(Setting, Value)
+        Settings[Setting] = Value
     end
 
     function HealthBarESP:Hide()
