@@ -51,6 +51,10 @@ function ESP:Box(Object, Settings)
         end
     end
 
+    function BoxESP:Hide()
+        BoxESP.DrawingObject.Visible = false
+    end
+
     function BoxESP:Remove()
         BoxESP.DrawingObject:Remove()
 
@@ -116,6 +120,10 @@ function ESP:Name(Object, Text, Settings)
             local NewObjectPosition = Vector2.new(Vector.X, Vector.Y) + Offset
             NameESP.DrawingObject.Position = NewObjectPosition
         end
+    end
+
+    function NameESP:Hide()
+        NameESP.DrawingObject.Visible = false
     end
 
     function NameESP:Remove()
@@ -240,6 +248,11 @@ function ESP:HealthBar(Object, Settings)
         end
     end
 
+    function HealthBarESP:Hide()
+        HealthBarESP.DrawingObjectBackground.Visible = false
+        HealthBarESP.DrawingObject.Visible = false
+    end
+
     function HealthBarESP:Remove()
         HealthBarESP.DrawingObjectBackground:Remove()
         HealthBarESP.DrawingObject:Remove()
@@ -273,6 +286,12 @@ end
  
 function ESP:Stop()
     ESP.Connections.MainConnection:Disconnect()
+
+    for i,ObjectTable in pairs(ESP.ActiveObjects) do
+        for i2,v in pairs(ObjectTable) do
+            
+        end
+    end
 end
  
 return ESP
