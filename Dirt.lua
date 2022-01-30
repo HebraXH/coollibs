@@ -1040,7 +1040,7 @@ function Lib:CreateWindow(Name)
                         [Enum.UserInputType.MouseButton2] = "MB2",
                         [Enum.UserInputType.MouseButton3] = "MB3",
                     }
-
+                    print(Yea[key.UserInputType])
                     if Yea[key.UserInputType] then
                         Key.Text = Yea[key.UserInputType]
                         location[flag] = key.UserInputType
