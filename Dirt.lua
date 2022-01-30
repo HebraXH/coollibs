@@ -983,7 +983,7 @@ function Lib:CreateWindow(Name)
             [Enum.UserInputType.MouseButton2] = "MB2",
             [Enum.UserInputType.MouseButton3] = "MB3",
         }
-        if default ~= false then
+        if default ~= nil then
             if Yea[default] then
                 Key.Text = Yea[default]
             else
