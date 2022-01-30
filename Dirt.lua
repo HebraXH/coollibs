@@ -978,8 +978,17 @@ function Lib:CreateWindow(Name)
         Key.TextStrokeTransparency = 0.920
         Key.TextXAlignment = Enum.TextXAlignment.Right
 
+        local Yea = {
+            [Enum.UserInputType.MouseButton1] = "MB1",
+            [Enum.UserInputType.MouseButton2] = "MB2",
+            [Enum.UserInputType.MouseButton3] = "MB3",
+        }
         if default ~= false then
-            Key.Text = string.sub(tostring(default),14,999)
+            if Yea[default] then
+                Key.Text = Yea[default]
+            else
+                Key.Text = default.Name
+            end
         end
 
         Text_4.Name = "Text"
@@ -1044,12 +1053,6 @@ function Lib:CreateWindow(Name)
                         Usable = true
                     end
                 else
-                    local Yea = {
-                        [Enum.UserInputType.MouseButton1] = "MB1",
-                        [Enum.UserInputType.MouseButton2] = "MB2",
-                        [Enum.UserInputType.MouseButton3] = "MB3",
-                    }
-                    
                     if Yea[key.UserInputType] then
                         Key.Text = Yea[key.UserInputType]
                         location[flag] = key.UserInputType
