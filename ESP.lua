@@ -169,6 +169,7 @@ function ESP:HealthBar(Object, Settings)
     Settings.Thickness = Settings.Thickness or 4
     Settings.Color = Settings.Color or Color3.fromRGB(0, 170, 0)
     Settings.Location = Settings.Location or "Left"
+    Settings.KeepMiddle = Settings.KeepMiddle or nil
 
     if Object and not Object.PrimaryPart then
         return nil
@@ -252,7 +253,7 @@ function ESP:HealthBar(Object, Settings)
             local OBackgroundFrom = Vector2.new(BottomVectorHealth.X, BottomVectorHealth.Y) + Offset
             local OBackgroundTo = Vector2.new(TopVectorHealth.X, TopVectorHealth.Y) + Offset
 
-            if not Settings.KeepMiddle then
+            if not Settings.KeepMiddle or Settings.KeepMiddle == false then
                 if Settings.Location == "Left" or Settings.Location == "Right" then
                     local Size = DOBackgroundFrom.Y - DOBackgroundTo.Y
 
