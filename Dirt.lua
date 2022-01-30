@@ -514,6 +514,7 @@ function Lib:CreateWindow(Name)
 
             location[flag] = Color3.fromRGB(tonumber(RTextBox.Text), tonumber(GTextBox.Text), tonumber(BTextBox.Text))
             toggle.BackgroundColor3 = Color3.fromRGB(tonumber(RTextBox.Text), tonumber(GTextBox.Text), tonumber(BTextBox.Text))
+            callback()
         end
 
         RTextBox.FocusLost:Connect(function()
