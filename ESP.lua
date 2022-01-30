@@ -118,7 +118,7 @@ function ESP:Name(Object, Text, Settings)
         if Settings.ShowDistance then
             FinalText ..= " " .. math.round((NameESP.Part.Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
         end
-        NameESP.Text = FinalText
+        NameESP.DrawingObject.Text = FinalText
 
         if Settings.Location == "Left" then
             NewCFrame += Vector3.new(-BoundingSize.X/2, -BoundingSize.Y, 0)
