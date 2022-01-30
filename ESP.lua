@@ -4,7 +4,7 @@ local ESP = {}
  
 ESP.ActiveObjects = {}
 ESP.Connections = {}
- 
+
 function ESP:CheckObject(Object)
     if not ESP.ActiveObjects[Object] then
         ESP.ActiveObjects[Object] = {}
@@ -289,7 +289,9 @@ function ESP:Stop()
 
     for i,ObjectTable in pairs(ESP.ActiveObjects) do
         for i2,v in pairs(ObjectTable) do
-            
+            if v and v.Hide then
+                v:Hide()
+            end
         end
     end
 end
