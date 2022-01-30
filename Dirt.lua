@@ -1036,9 +1036,9 @@ function Lib:CreateWindow(Name)
                     end
                 else
                     local Yea = {
-                        [Enum.UserinputType.MouseButton1] = "MB1",
-                        [Enum.UserinputType.MouseButton2] = "MB2",
-                        [Enum.UserinputType.MouseButton3] = "MB3",
+                        [Enum.UserInputType.MouseButton1] = "MB1",
+                        [Enum.UserInputType.MouseButton2] = "MB2",
+                        [Enum.UserInputType.MouseButton3] = "MB3",
                     }
 
                     if Yea[key.UserInputType] then
