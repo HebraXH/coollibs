@@ -1020,6 +1020,7 @@ function Lib:CreateWindow(Name)
             Key.Text = "..."
             Usable = false
             Check = game:GetService("UserInputService").InputBegan:Connect(function(key)
+                print(key)
                 if key.UserInputType == Enum.UserInputType.Keyboard then
                     if key.KeyCode ~= Enum.KeyCode.Unknown and not game:GetService("UserInputService"):GetFocusedTextBox() and key.KeyCode ~= Enum.KeyCode.Escape then
                         Key.Text = CheckName(key)
