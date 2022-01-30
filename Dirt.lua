@@ -1007,8 +1007,14 @@ function Lib:CreateWindow(Name)
         end
         Check = game:GetService("UserInputService").InputBegan:Connect(function(key)
             if Usable == true and not game:GetService("UserInputService"):GetFocusedTextBox() then
-                if key.KeyCode == location[flag] then
-                    spawn(callback)
+                if key.UserInputType == Enum.UserInputType.Keyboard then
+                    if key.KeyCode == location[flag] then
+                        spawn(callback)
+                    end
+                else
+                    if key.UserInputType == location[flag] then
+                        spawn(callback)
+                    end
                 end
                 if not Hotkey:IsDescendantOf(game) then
                     Check:Disconnect()
