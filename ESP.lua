@@ -113,10 +113,10 @@ function ESP:Name(Object, Text, Settings)
 
         local FinalText = Text
         if Settings.ShowHealth and Object:FindFirstChild("Humanoid") then
-            FinalText .. " [" .. math.round(Object.Humanoid.Health) .. "/" .. Object.Humanoid.MaxHealth .. "]"
+            FinalText ..= " [" .. math.round(Object.Humanoid.Health) .. "/" .. Object.Humanoid.MaxHealth .. "]"
         end
         if Settings.ShowDistance then
-            FinalText .. " " .. math.round((NameESP.Part.Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
+            FinalText ..= " " .. math.round((NameESP.Part.Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
         end
         NameESP.Text = FinalText
 
