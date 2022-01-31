@@ -29,11 +29,12 @@ function ESP:Box(Object, Settings)
     BoxESP.DrawingObject.Color = Settings.Color or Color3.fromRGB(255, 255, 255)
     BoxESP.DrawingObject.Thickness = Settings.Thickness or 2
     BoxESP.DrawingObject.Filled = Settings.Filled or false
-    BoxESP.Part = Settings.Part or Object.PrimaryPart
+    BoxESP.Object = Object
+    BoxESP.Part = Settings.Part or Object.PrimaryPart.Name
     BoxESP.Removed = false
  
     function BoxESP:Update()
-        local BoundingCFrame, BoundingSize = Object:GetBoundingBox()
+        local BoundingCFrame, BoundingSize = BoxESP.Object:GetBoundingBox()
         BoundingSize /= 2
         
         Settings.FaceCamera = true
@@ -67,7 +68,9 @@ function ESP:Box(Object, Settings)
     end
 
     function BoxESP:Remove()
-        BoxESP.DrawingObject:Remove()
+        if BoxESP.DrawingObject.__OBJECT_EXISTS == true then
+            BoxESP.DrawingObject:Remove()
+        end
 
         BoxESP.Removed = true
     end
@@ -99,8 +102,9 @@ function ESP:Name(Object, Text, Settings)
     NameESP.DrawingObject.Center = true
     NameESP.DrawingObject.Outline = Settings.Outline or false
     NameESP.ExtraText = ""
-    NameESP.Part = Settings.Part or Object.PrimaryPart
-    NameESP.Offset = Vector3.new(0, NameESP.Part.Size.Y, 0)
+    NameESP.Object = Object
+    NameESP.Part = Settings.Part or NameESP.Object.PrimaryPart.Name
+    NameESP.Offset = Vector3.new(0, NameESP.Object:FindFirstChild(NameESP.Part).Size.Y, 0)
     NameESP.Removed = false
  
     function NameESP:UpdateText(NewText)
@@ -113,11 +117,11 @@ function ESP:Name(Object, Text, Settings)
         local Offset
 
         local FinalText = Text
-        if Settings.ShowHealth and Object:FindFirstChild("Humanoid") then
-            FinalText ..= " [" .. math.round(Object.Humanoid.Health) .. "/" .. Object.Humanoid.MaxHealth .. "]"
+        if Settings.ShowHealth and NameESP.Object:FindFirstChild("Humanoid") then
+            FinalText ..= " [" .. math.round(NameESP.Object.Humanoid.Health) .. "/" .. NameESP.Object.Humanoid.MaxHealth .. "]"
         end
         if Settings.ShowDistance then
-            FinalText ..= " " .. math.round((NameESP.Part.Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
+            FinalText ..= " " .. math.round((NameESP.Object:FindFirstChild(NameESP.Part).Position - workspace.CurrentCamera.CFrame.Position).Magnitude) .. " studs"
         end
         FinalText ..= NameESP.ExtraText
         NameESP.DrawingObject.Text = FinalText
@@ -155,7 +159,9 @@ function ESP:Name(Object, Text, Settings)
     end
 
     function NameESP:Remove()
-        NameESP.DrawingObject:Remove()
+        if NameESP.DrawingObject.__OBJECT_EXISTS == true then
+            NameESP.DrawingObject:Remove()
+        end
 
         NameESP.Removed = true
     end
@@ -188,11 +194,12 @@ function ESP:HealthBar(Object, Settings)
     HealthBarESP.DrawingObjectBackground.Color = Color3.fromRGB(34, 34, 34)
     HealthBarESP.DrawingObjectBackground.Thickness = Settings.Thickness + 2 -- + 1 or 5
     HealthBarESP.DrawingObjectBackground.ZIndex = 1
-    HealthBarESP.Part = Object.PrimaryPart
+    HealthBarESP.Object = Object
+    HealthBarESP.Part = HealthBarESP.Object.PrimaryPart.Name
     HealthBarESP.Removed = false
 
     function HealthBarESP:Update()
-        local BoundingCFrame, BoundingSize = Object:GetBoundingBox()
+        local BoundingCFrame, BoundingSize = HealthBarESP.Object:GetBoundingBox()
         BoundingSize /= 2
         BoundingCFrame = CFrame.new(BoundingCFrame.Position, workspace.Camera.CFrame.Position)
         local HealthCFrame = BoundingCFrame
@@ -204,11 +211,11 @@ function ESP:HealthBar(Object, Settings)
         if Settings.KeepMiddle then
             if Settings.Location == "Left" or Settings.Location == "Right" then
                 MaxSizeY = HealthSize.Y
-                Health = (Object.Humanoid.Health / Object.Humanoid.MaxHealth) * MaxSizeY
+                Health = (HealthBarESP.Object.Humanoid.Health / HealthBarESP.Object.Humanoid.MaxHealth) * MaxSizeY
                 HealthSize -= Vector3.new(0, MaxSizeY + Health, 0)
             else
                 MaxSizeY = HealthSize.X
-                Health = (Object.Humanoid.Health / Object.Humanoid.MaxHealth) * MaxSizeY
+                Health = (HealthBarESP.Object.Humanoid.Health / HealthBarESP.Object.Humanoid.MaxHealth) * MaxSizeY
                 HealthSize -= Vector3.new(MaxSizeY + Health, 0, 0)
             end
         end
@@ -259,12 +266,12 @@ function ESP:HealthBar(Object, Settings)
                 if Settings.Location == "Left" or Settings.Location == "Right" then
                     local Size = DOBackgroundFrom.Y - DOBackgroundTo.Y
 
-                    local Health2 = (Object.Humanoid.Health / Object.Humanoid.MaxHealth) * Size
+                    local Health2 = (HealthBarESP.Object.Humanoid.Health / HealthBarESP.Object.Humanoid.MaxHealth) * Size
                     OBackgroundTo -= Vector2.new(0, Size - Health2)
                 else
                     local Size = DOBackgroundFrom.X - DOBackgroundTo.X
 
-                    local Health2 = (Object.Humanoid.Health / Object.Humanoid.MaxHealth) * Size
+                    local Health2 = (HealthBarESP.Object.Humanoid.Health / HealthBarESP.Object.Humanoid.MaxHealth) * Size
                     OBackgroundTo += Vector2.new(Size - Health2, 0)
                 end
             end
@@ -287,8 +294,10 @@ function ESP:HealthBar(Object, Settings)
     end
 
     function HealthBarESP:Remove()
-        HealthBarESP.DrawingObjectBackground:Remove()
-        HealthBarESP.DrawingObject:Remove()
+        if HealthBarESP.DrawingObject.__OBJECT_EXISTS == true then
+            HealthBarESP.DrawingObjectBackground:Remove()
+            HealthBarESP.DrawingObject:Remove()
+        end
 
         HealthBarESP.Removed = true
     end
@@ -306,7 +315,8 @@ function ESP:Start()
                     v:Update()
                 else
                     if v.Removed == false then
-                        v:Remove()
+                        v.Visible = false
+                        continue
                     end
 
                     ESP.ActiveObjects[i] = nil
