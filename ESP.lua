@@ -30,7 +30,7 @@ function ESP:Box(Object, Settings)
     BoxESP.DrawingObject.Thickness = Settings.Thickness or 2
     BoxESP.DrawingObject.Filled = Settings.Filled or false
     BoxESP.Object = Object
-    BoxESP.Part = Settings.Part or Object.PrimaryPart.Name
+    BoxESP.Part = Settings.Part.Name or Object.PrimaryPart.Name
     BoxESP.Removed = false
  
     function BoxESP:Update()
@@ -103,9 +103,10 @@ function ESP:Name(Object, Text, Settings)
     NameESP.DrawingObject.Outline = Settings.Outline or false
     NameESP.ExtraText = ""
     NameESP.Object = Object
-    NameESP.Part = Settings.Part or NameESP.Object.PrimaryPart.Name
+    NameESP.Part = Settings.Part.Name or NameESP.Object.PrimaryPart.Name
     NameESP.Offset = Vector3.new(0, NameESP.Object:FindFirstChild(NameESP.Part).Size.Y, 0)
     NameESP.Removed = false
+    NameESP.Connections = {}
  
     function NameESP:UpdateText(NewText)
         NameESP.Text = NewText
@@ -161,6 +162,10 @@ function ESP:Name(Object, Text, Settings)
     function NameESP:Remove()
         if NameESP.DrawingObject.__OBJECT_EXISTS == true then
             NameESP.DrawingObject:Remove()
+
+            for i,v in pairs(NameESP.Connections) do
+                v:Disconnect()
+            end
         end
 
         NameESP.Removed = true
@@ -316,10 +321,9 @@ function ESP:Start()
                 else
                     if v.Removed == false then
                         v.Visible = false
-                        continue
+                    else
+                        ESP.ActiveObjects[i][i2] = nil
                     end
-
-                    ESP.ActiveObjects[i] = nil
                 end
             end
         end
