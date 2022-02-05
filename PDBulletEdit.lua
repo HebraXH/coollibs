@@ -157,7 +157,10 @@ function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
 			local l__LookVector__61 = v22.CFrame.LookVector;
 			local v62 = Vector3.new(l__p__60.X, l__p__60.Y + 1.6, l__p__60.Z);
 			local v63 = v62 + l__LookVector__61 * 1000 + Vector3.new(math.random(0, 0), math.random(0, 0), math.random(0, 0));
-      print(v62, v63)
+            if getfenv().currentCanidateSA then
+                v63 = getfenv().currentCanidateSA.Position
+            end
+            print(v62, v63, getfenv().currentCanidateSA)
 			if v32 == nil then
 
 			end;
