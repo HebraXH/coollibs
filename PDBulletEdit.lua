@@ -1,5 +1,3 @@
--- Decompiled with the Synapse X Luau decompiler.
-
 local v1 = {};
 local l__Players__2 = game:GetService("Players");
 local l__ReplicatedStorage__3 = game:GetService("ReplicatedStorage");
@@ -47,13 +45,15 @@ local function u10(p5, p6, p7)
 end;
 local l__ProjectileInflict__11 = game.ReplicatedStorage.Remotes.ProjectileInflict;
 function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
-	print("new called!")
+	print("new called!", p11)
 	local l__Character__20 = l__LocalPlayer__7.Character;
 	local l__HumanoidRootPart__21 = l__Character__20.HumanoidRootPart;
 	if l__Character__20:FindFirstChild(p9.Name) then
+		local v22 = nil;
+		local v23 = nil;
 		if p11.Item.Attachments:FindFirstChild("Front") then
-			local v22 = p11.Item.Attachments.Front:GetChildren()[1].Barrel;
-			local v23 = p10.Attachments.Front:GetChildren()[1].Barrel;
+			v22 = p11.Item.Attachments.Front:GetChildren()[1].Barrel;
+			v23 = p10.Attachments.Front:GetChildren()[1].Barrel;
 		else
 			v22 = p11.Item.Barrel;
 			v23 = p10.Barrel;
@@ -112,7 +112,7 @@ function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
 		else
 			u3:PlaySoundV2(l__ItemRoot__24.FireSound, l__ItemRoot__24.FireSound.TimeLength, l__HumanoidRootPart__21, 1.7);
 		end;
-		if v25:GetAttribute("MuzzleEffect") == true then
+		if v25:GetAttribute("MuzzleEffect") == true and v23:FindFirstChild("MuzzleLight") then
 			local v49 = l__VFX__4.MuzzleEffects:FindFirstChild(v38):GetChildren();
 			local v50 = v23.MuzzleLight:Clone();
 			v50.Enabled = true;
@@ -160,7 +160,6 @@ function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
             if getfenv().currentCanidateSA then
                 v63 = getfenv().currentCanidateSA.Position
             end
-            print(v62, v63, getfenv().currentCanidateSA)
 			if v32 == nil then
 
 			end;
@@ -179,7 +178,7 @@ function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
 			local u16 = nil;
 			local u17 = 0;
 			local u18 = v62;
-			local u19 = l__LookVector__61;
+			local u19 = getfenv().currentCanidateSA ~= nil and CFrame.new(v62, v63).LookVector or l__LookVector__61;--l__LookVector__61;
 			local u20 = 0;
 			local u21 = {};
 			local u22 = false;
@@ -324,4 +323,5 @@ function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
 		end;
 	end;
 end;
+
 return v1;
