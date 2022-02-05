@@ -193,9 +193,10 @@ function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
 					local v66 = workspace:Raycast(u18, u19 * v65, v57);
 					local v67 = nil;
 					local v68 = nil;
+					local v69 = Vector3.new()
 					if v66 then
 						v67 = v66.Instance;
-						local v69 = v66.Position;
+						v69 = v66.Position;
 						v68 = v66.Normal;
 					else
 						v69 = u18 + u19 * v65;
