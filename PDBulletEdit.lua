@@ -47,6 +47,7 @@ local function u10(p5, p6, p7)
 end;
 local l__ProjectileInflict__11 = game.ReplicatedStorage.Remotes.ProjectileInflict;
 function v1.CreateBullet(p8, p9, p10, p11, p12, p13, p14, p15)
+	print("new called!")
 	local l__Character__20 = l__LocalPlayer__7.Character;
 	local l__HumanoidRootPart__21 = l__Character__20.HumanoidRootPart;
 	if l__Character__20:FindFirstChild(p9.Name) then
