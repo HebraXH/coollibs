@@ -1108,7 +1108,7 @@ function Lib:CreateWindow(Name)
                     Key.Text = "nil"
                 end
             else
-                Key.Text = Yea[key.UserInputType]
+                Key.Text = Yea[key]
             end
         end
         table.insert(location.Refreshes, Refreshtable)
