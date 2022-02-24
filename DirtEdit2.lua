@@ -1102,13 +1102,13 @@ function Lib:CreateWindow(Name)
         function Refreshtable:Refresh()
             local key = location[flag]
             if Yea[key] then
+                Key.Text = Yea[key]
+            else
                 if key ~= Enum.KeyCode.Unknown and not game:GetService("UserInputService"):GetFocusedTextBox() and key ~= Enum.KeyCode.Escape then
                     Key.Text = CheckName(key)
                 elseif key == Enum.KeyCode.Escape then
                     Key.Text = "nil"
                 end
-            else
-                Key.Text = Yea[key]
             end
         end
         table.insert(location.Refreshes, Refreshtable)
