@@ -377,9 +377,9 @@ function Lib:CreateWindow(Name)
         local Refreshtable = {}
         function Refreshtable:Refresh()
             if location[flag] == true then
-                TempTween(toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(170, 0, 0)}):Play()
-            else
                 TempTween(toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(0, 170, 0)}):Play()
+            else
+                TempTween(toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(170, 0, 0)}):Play()
             end
             spawn(callback)
         end
@@ -1105,7 +1105,7 @@ function Lib:CreateWindow(Name)
                 Key.Text = Yea[key]
             else
                 if key ~= Enum.KeyCode.Unknown and not game:GetService("UserInputService"):GetFocusedTextBox() and key ~= Enum.KeyCode.Escape then
-                    Key.Text = CheckName(key)
+                    Key.Text = CheckName({KeyCode = key})
                 elseif key == Enum.KeyCode.Escape then
                     Key.Text = "nil"
                 end
